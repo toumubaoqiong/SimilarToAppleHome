@@ -1,0 +1,27 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+
+    <item android:drawable="@drawable/cwtb0001" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0002" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0003" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0004" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0005" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0006" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0007" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0008" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0009" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0010" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0011" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0012" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0013" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0014" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0015" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0016" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0017" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0018" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0019" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0020" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0021" android:duration="45" />
+    <item android:drawable="@drawable/cwtb0022" android:duration="45" />
+
+</animation-list>
