@@ -1,22 +1,13 @@
 package com.vince.similartoapplehome;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.TextView;
 
 /**
- *description:类似360桌面小球动画实现
+ *description:仿苹果home按键动画
  *author:vince
- *creator at:2016/4/19
  */
 public class MainActivity extends Activity {  
 

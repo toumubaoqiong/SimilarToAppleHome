@@ -15,6 +15,10 @@ import android.widget.Toast;
 
 import java.lang.reflect.Field;
 
+/**
+ *description:仿苹果home按键动画
+ *author:vince
+ */
 public class TableShowView_Apple extends View {
 
     Context c;
@@ -48,55 +52,45 @@ public class TableShowView_Apple extends View {
         mAnimationDrawable.start();
         win.setBackgroundColor(Color.TRANSPARENT);
         win.setOnTouchListener(new OnTouchListener() {
-            float lastX, lastY;
 
             public boolean onTouch(View v, MotionEvent event) {
                 final int action = event.getAction();
 
-                float x = event.getX();
-                float y = event.getY();
-
-                if (tag == 0) {
-                    oldOffsetX = mWMParams.x;
-                    oldOffsetY = mWMParams.y;
-                }
+                float x = event.getRawX();
+                float y = event.getRawY();
 
                 if (action == MotionEvent.ACTION_DOWN) {
-                    lastX = x;
-                    lastY = y;
-
+                    oldOffsetX = (int)x;
+                    oldOffsetY = (int)y;
                 } else if (action == MotionEvent.ACTION_MOVE) {
-                    mWMParams.x += (int) (x - lastX);
-                    mWMParams.y += (int) (y - lastY);
+                    mWMParams.x = (int)x - win.getWidth()/2;
+                    mWMParams.y = (int) (y - win.getHeight()/2 - getStatusBarHeight());
 
                     tag = 1;
                     mWM.updateViewLayout(win, mWMParams);
                 } else if (action == MotionEvent.ACTION_UP) {
-                    int newOffsetX = mWMParams.x;
-                    int newOffsetY = mWMParams.y;
 
-                    switch (getPos((int)event.getRawX(), (int)event.getRawY() - getStatusBarHeight())){
-                        case 0://左
-                            mWMParams.x = 0;
-                            break;
-                        case 1://右
-                            mWMParams.x = (int)screenWidth;
-                            break;
-                        case 2://上
-                            mWMParams.y = 0;
-                            break;
-                        case 3://下
-                            mWMParams.y =  (int)screenHeight;
-                            break;
-                        default:
-                            break;
-                    }
-
-                    if (oldOffsetX == newOffsetX && oldOffsetY == newOffsetY) {
-                        Toast.makeText(c, "hello world", 1).show();
+                    if (oldOffsetX == (int)x && oldOffsetY == (int)y) {
+                        Toast.makeText(c, "你点到我了", 1).show();
                     } else {
+
+                        switch (getPos((int)x, (int)y)){
+                            case 0://左
+                                mWMParams.x = 0;
+                                break;
+                            case 1://右
+                                mWMParams.x = (int)screenWidth - win.getWidth()/2;
+                                break;
+                            case 2://上
+                                mWMParams.y = 0;
+                                break;
+                            case 3://下
+                                mWMParams.y =  (int)screenHeight - win.getHeight()/2 - getStatusBarHeight();
+                                break;
+                            default:
+                                break;
+                        }
                         mWM.updateViewLayout(win, mWMParams);
-                        tag = 0;
                     }
                 }
                 return true;
@@ -111,12 +105,13 @@ public class TableShowView_Apple extends View {
         wmParams.format = PixelFormat.RGBA_8888;
         wmParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                 | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        wmParams.gravity = Gravity.LEFT | Gravity.TOP;//指定位置定为原点，暂时还不知道原因
+        wmParams.gravity = Gravity.LEFT | Gravity.TOP;
 
         wmParams.width = WindowManager.LayoutParams.WRAP_CONTENT;;
         wmParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        wmParams.x = (int)screenWidth;
-        wmParams.y = (int)(screenHeight/2 - getStatusBarHeight()/2);
+        //wmParams.x、wmParams.y是相对gravity的，如果不定义gravity默认在中间位置
+        wmParams.x = (int)screenWidth - win.getWidth()/2;
+        wmParams.y = (int)screenHeight/2 - getStatusBarHeight() - win.getHeight()/2;
         Log.i("TableShowView_Apple----------------------------->wmParams.y",wmParams.y + "");
         wm.addView(win, wmParams);
     }
@@ -132,7 +127,7 @@ public class TableShowView_Apple extends View {
         int leftDistance = x;
         int rightDistance = (int) (screenWidth - x);
         int topDistance = y;
-        int bottomDistance = (int) (screenHeight - y);
+        int bottomDistance = (int) (screenHeight - y -getStatusBarHeight());
         int pos = 0;
         int max;
 
@@ -151,7 +146,7 @@ public class TableShowView_Apple extends View {
         return pos;
     }
 
-    //获取最大值
+    //获取最小值
     public int getMin(int leftDistance, int rightDistance, int topDistance, int bottomDistance) {
 
         int minlr;
